@@ -3,10 +3,11 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { RegisterDto } from "./DTOs/register.dto";
 import { HashService } from "./hashing/hash.service";
 import { LoginDto } from "./DTOs/login.dto";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService{
-    constructor(private readonly prismaService: PrismaService, private readonly hashService: HashService) {}
+    constructor(private readonly prismaService: PrismaService, private readonly hashService: HashService, private readonly jwtService: JwtService) {}
 
     async register(registerDto: RegisterDto) {
         const user = registerDto;
@@ -50,7 +51,15 @@ export class AuthService{
             throw new UnauthorizedException('password or email is incorrect');
         }
 
-        // generate JWT later
-        return { message: 'Login successful', name: user.name };
+        const accessToken = await this.jwtService.signAsync({
+            sub: user.id,
+            email: user.email
+        },
+        {
+            secret: process.env.JWT_SECRET,
+            expiresIn: process.env.EXPIRES_IN
+        }
+        )
+        return { accessToken };
     }
 } 

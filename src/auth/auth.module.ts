@@ -20,5 +20,6 @@ import { BcryptService } from './hashing/bcrypt.service';
     },
     AuthService],
   controllers: [AuthController],
+  exports: [JwtModule]
 })
 export class AuthModule {}
