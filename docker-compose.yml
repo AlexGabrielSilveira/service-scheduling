@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: nest_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://dev_db:dev_db@postgres:5432/dev_db"
+
+  postgres:
+    image: postgres:latest
+    container_name: nest_postgres
+    environment:
+      POSTGRES_USER: dev_db
+      POSTGRES_PASSWORD: dev_db
+      POSTGRES_DB: dev_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
