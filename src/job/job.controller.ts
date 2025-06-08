@@ -6,7 +6,7 @@ import { AuthTokenGuard } from "src/auth/guards/auth-token.guard";
 
 @Controller()
 export class JobController {
-    constructor(private readonly jobService: JobService){}
+    constructor(private readonly jobService: JobService) {}
 
     @UseGuards(AuthTokenGuard)
     @Post('post/service')
