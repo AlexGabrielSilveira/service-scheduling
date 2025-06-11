@@ -4,7 +4,7 @@ import { ScheduleDto } from "./DTOs/schedule.dto";
 import { ScheduleService } from "./schedule.service";
 
 @UseGuards(AuthTokenGuard)
-@Controller()
+@Controller('schedule')
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
