@@ -9,13 +9,13 @@ export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   
-  @Post('/new-appointment')
+  @Post('/new/appointment')
   async schedule(@Request() req: any, @Body() scheduleDto: ScheduleDto) {
     const clientId = req.user.sub;
     return this.scheduleService.create(scheduleDto, clientId);
   }
 
-  @Get('my-appointments')
+  @Get('my/appointments')
   async myAppointments(@Request() req: any) {
     const userId = req.user.sub;
     const role = req.user.role;

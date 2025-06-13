@@ -9,13 +9,13 @@ export class JobController {
     constructor(private readonly jobService: JobService) {}
 
     @UseGuards(AuthTokenGuard)
-    @Post('post/service')
+    @Post('create/service')
     async toSchedule(@Body() jobDto: JobDto, @Request() req: any) {
         const userId = req.user.sub;
         return await this.jobService.postJob(jobDto, userId);
     }
     
-    @Get('services/all')
+    @Get('all/services')
     async listAllServices() {
         return await this.jobService.listAllJobs();
     }
